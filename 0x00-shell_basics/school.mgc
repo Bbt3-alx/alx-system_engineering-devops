@@ -1,2 +1,2 @@
 #!/bin/bash
-cat School
+file school.mgc --compile SCHOOL -c -m --files-from School -i --list -k
