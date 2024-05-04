@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2009
+# Display lines containing the word "bash" and show the PID
+
+# Use ps to list all processes (including those without a TTY)
+# Filter lines containing "bash"
+# Print the PID and the line
+ps aux | grep -w "bash" | awk '{print $2, $0}'
