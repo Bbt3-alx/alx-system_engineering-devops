@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# a Bash script that stops 4-to_infinity_and_beyond process.
+
+# Find the PID of the process
+PID=$(ps aux | grep "4-to_infinity_and_beyond" | grep -v grep | awk '{print $2}')
+
+# Stop the process using kill
+kill -15 $PID
