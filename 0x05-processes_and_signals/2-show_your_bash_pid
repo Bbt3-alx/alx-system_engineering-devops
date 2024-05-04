@@ -5,4 +5,4 @@
 # Use ps to list all processes (including those without a TTY)
 # Filter lines containing "bash"
 # Print the PID and the line
-ps aux | grep -w "bash" | awk '{print $2, $0}'
+./1-list_your_processes | grep -w "bash" | awk '{print $2, $0}'
