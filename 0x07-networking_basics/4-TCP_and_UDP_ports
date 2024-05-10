@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Display listening sockets
+netstat -lntu
+lsof -i -P -n | grep LISTEN
