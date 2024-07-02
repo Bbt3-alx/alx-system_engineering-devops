@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# This script fixed the appache2 server
+service apache2 start
