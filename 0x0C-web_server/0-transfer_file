@@ -10,4 +10,4 @@ SERVER_IP=$2
 USERNAME=$3
 SSH_P_KEY=$4
 
-scp -i "$PATH_TO_SSH_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$SERVER_IP:~/"
+scp -i "$SSH_P_KEY" -o StrictHostKeyChecking=no "$PATH_TO_FILE" "$USERNAME@$SERVER_IP:~/"
