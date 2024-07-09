@@ -5,19 +5,13 @@ sudo apt-get update
 # Install Nginx
 sudo apt-get install -y nginx
 
-# Create a new Nginx configuration file for the redirect
-cat <<EOL | sudo tee /etc/nginx/sites-available/redirect
-server {
-	listen 80;
-	server_name _;
+# Start Nginx server
+sudo service nginx start
 
-	location /redirect_me {
-		return 301 http:brehyma.tech;
-	}
-}
-EOL
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-# Enable the new site by creating a symbolic link
-sudo ln -s /etc/nginx/sites-available/redirect /etc/nginx/sites-enabled/
+# Update Nginx configuration to add redirectin
+sudo sed -i '/^}$/i \ \n\trewrite ^/redirect_me$ https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
-sudo service reload nginx
+# Restart Nginx to apply changes
+service nginx restart
