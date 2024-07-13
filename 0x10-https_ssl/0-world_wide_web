@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# This script informations about subdomain
 
 DOMAIN=$1
 SUB_1="www"
