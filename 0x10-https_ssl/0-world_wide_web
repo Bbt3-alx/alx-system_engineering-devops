@@ -11,7 +11,7 @@ SUB_DOMAIN=$2
 get_records() {
 	local domain=$1
 	local subdomain=$2
-	dig  "$subdomain.$domain" A | awk '/^;; ANSWER SECTION:/{getline; print "The subdomain " "'$subdomain'" " is an " $4, "record and points to "  $5}'
+	sudo dig  "$subdomain.$domain" A | awk '/^;; ANSWER SECTION:/{getline; print "The subdomain " "'$subdomain'" " is a " $4, "record and points to "  $5}'
 
 }
 
