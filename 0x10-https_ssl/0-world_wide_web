@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+DOMAIN=$1
+SUB_1="www"
+SUB_2="lb-01"
+SUB_3="web-01"
+SUB_4="web-02"
+SUB_DOMAIN=$2
+
+get_records() {
+	local domain=$1
+	local subdomain=$2
+	dig  "$subdomain.$domain" A | awk '/^;; ANSWER SECTION:/{getline; print "The subdomain " "'$subdomain'" " is an " $4, "record and points to "  $5}'
+
+}
+
+if [ $# -gt 1 ]; then
+	get_records "$DOMAIN" "$SUB_DOMAIN"
+	exit 0
+fi
+
+if [ $# -eq 1 ]; then
+	get_records "$DOMAIN" "$SUB_1"
+	get_records "$DOMAIN" "$SUB_2"
+	get_records "$DOMAIN" "$SUB_3"
+	get_records "$DOMAIN" "$SUB_4"
+	exit 0
+fi
