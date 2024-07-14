@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Create a certificate using certbot
+
+DOMAIN="www.brehyma.tech"
+CERT_PATH="/etc/letsencrypt/live/$DOMAIN"
+HAPROXY_CFG="/etc/haproxy/haproxy.cfg"
+NEW_HAPROXY_CFG="/etc/haproxy/1-haproxy_ssl_termination.cfg"
+BACKEND_NAME="web-backend"
+SERVER_1="web-01.brehyma.tech:80"
+SERVER_2="web-02.brehyma.tech:80"
+
+# Install Certbot and generate SSL certificate
+sudo apt-get update
+sudo atp-get install -y certbot
+sudo certbot certonly --standalone -d "$DOMAIN"
+
+# Install HAProxy
+sudo apt-get install -y haproxy
+
+# Backup the original HAProxy configuration file
+sudo cp "$HAPROXY_CFG" "$HAPROXY_CFG.bak"
+
+# Move the new HAProxy configuration file
+sudo mv $HAPROXY_CFG $NEW_HAPROXY_CFG
+
+# Append the new configuration to the HAProxy configuration file
+sudo tee "$NEW_HAPROXY_CFG" > /dev/null << EOL
+backend $BACKEND_NAME
+	balance roundrobin
+	server $SERVER_1 check
+	server $SERVER_2 check
+
+frontend http
+	bind *:80
+	bind *:443 ssl crt /etc/haproxy/certs/www.brehyma.tech.pem
+	redirect scheme https code 302 if !{ ssl_fc }
+	default_backend $BACKEND_NAME
+EOL
+ # Reload HAProxy to apply the new configuration
+ sudo systemctl reload haproxy
