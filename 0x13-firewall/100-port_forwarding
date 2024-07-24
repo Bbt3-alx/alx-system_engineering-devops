@@ -11,10 +11,10 @@
 :POSTROUTING ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 
-
-# Forward HTTP (port 80) to port 8080
+# Forward HTTP traffic from port 8080 to port 80
 -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 
+COMMIT
 
 # Don't delete these required lines, otherwise there will be errors
 *filter
