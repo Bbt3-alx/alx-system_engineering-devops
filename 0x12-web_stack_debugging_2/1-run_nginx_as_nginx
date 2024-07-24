@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Run Nginx as Nginx
+
+NGINX_CONF='/etc/nginx/nginx.conf'
+SERVER_BLOCK='/etc/nginx/sites-available/default'
+
+#Check if Nginx is installed
+if command -v nginx &> /dev/null
+then
+	echo "Nginx is not installed. Existing."
+	exit 1
+fi
+
+# Update the i=nginx user to 'nginx'
+sudo sed 's/user .*/user nginx;/g' $NGINX_CONF
+
+# Update the server block to listen on port 8080
+if grep -q "listen 8080;" SERVER_BLOCK
+then
+	echo "Port 8080 is already configured."
+else
+	sudo sed -i 's/listen 80 default;/listen 8080 default_server;/g' $SERVER_BLOCK
+	sudo sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:8080 default_server;/g' $SERVER_BLOCK
+fi
+
+# Ensure the nginx user exists
+if ! id -u nginx &> /dev/null
+then
+	echo "User nginx does not exists. Creating user."
+	sudo useradd -r nginx
+fi
+# restart nginx to apply change
+sudo systemctl restart nginx
