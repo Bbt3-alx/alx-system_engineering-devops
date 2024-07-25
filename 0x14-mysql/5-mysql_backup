@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# This script backup a mysql database
+
+# Check if the password argument is provided
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 <MySQL root passwor>"
+	exit 1
+fi
+
+# get the MySQL root password from the first argument
+MYSQL_ROOT_PASSWORD=$1
+# Define the backup file name
+BACKUP_FILE="backup.sql"
+
+# Define the date format for the archive name
+DATE_FORMAT=$(date +'%d-%m-%Y')
+
+# Define the archive file name
+ARCHIVE_FILE="${DATE_FORMAT}.tar.gz"
+
+#Generate the MySQL dump for all databases
+mysqldump -u root -p"${MYSQL_ROOT_PASSWORD}" --all-databases > ${BACKUP_FILE}
+
+# Create a compresed archive of the dump file
+tar -czf ${ARCHIVE_FILE} ${BACKUP_FILE}
+
+#Check if dump was successfull
+if [ $? -ne 0 ]; then
+	echo "MySQL dump failed!"
+	exit 1
+fi
