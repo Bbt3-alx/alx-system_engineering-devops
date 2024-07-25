@@ -8,12 +8,8 @@
 #   ufw-before-forward
 *nat
 :PREROUTING ACCEPT [0:0]
-:POSTROUTING ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
-
 # Forward HTTP traffic from port 8080 to port 80
--A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
-
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
 COMMIT
 
 # Don't delete these required lines, otherwise there will be errors
