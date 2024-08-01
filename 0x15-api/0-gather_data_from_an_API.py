@@ -16,7 +16,7 @@ def get_employee_name(employee_id):
         return None
 
 def get_todo_list(employee_id):
-    """Get employee name"""
+    """Get employee TODO list"""
     response = requests.get(f'https://jsonplaceholder.typicode.com/todos?userId={employee_id}')
     if response.status_code == 200:
         return response.json()
