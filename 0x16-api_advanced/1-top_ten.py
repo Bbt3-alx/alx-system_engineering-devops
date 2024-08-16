@@ -1,3 +1,10 @@
+#!/usr/bin/python3
+"""
+A module Prints the titles of the first 10 hot posts listed
+for a given subreddit.
+"""
+
+
 import requests
 
 
