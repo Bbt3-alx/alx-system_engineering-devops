@@ -33,7 +33,7 @@ This incident led to a reduction in my foundation score due to missed deadlines 
 - Unreliable Environment: The sandbox environment proved to be unreliable, which was not anticipated or accounted for in my workflow.
 No Contingency Plan: There was no contingency plan in place to handle situations where the sandbox might become unavailable or unstable.
 
-#Action Items:
+# Action Items:
 
 - Switch to a More Stable Environment:
 Intall and configure WSL on my Windows machine to create a more reliable and stable development environment.
