@@ -1,5 +1,3 @@
-# 0x19-postmortem
-
 # Postmortem Report: Data Loss in Web Stack Debugging Tasks
 # Incident: Loss of Data
 - Date: August 1, 2024
