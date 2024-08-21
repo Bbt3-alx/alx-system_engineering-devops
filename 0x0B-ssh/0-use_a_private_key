@@ -3,5 +3,6 @@
 SERVER_IP="100.27.10.204"
 USER="ubuntu"
 KEY="~/.ssh/school"
+chmod 600 $KEY
 ssh-keygen -t rsa -b 4096 -f $KEY
-ssh -i $KEY@$SERVER_IP
+ssh -i $USER@$SERVER_IP
